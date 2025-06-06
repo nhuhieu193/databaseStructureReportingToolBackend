@@ -1,13 +1,15 @@
 package com.nhuhieu193.reportingTool.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ColumnMetadata {
-    private String name;
-    private String type;
-    private int size;
+    private String columnName;
+    private String dataType;
+    private int columnSize;
     private boolean nullable;
-    private boolean autoIncrement;
-    private String defaultValue;
 }

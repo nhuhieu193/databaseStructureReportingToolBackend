@@ -1,9 +1,0 @@
-<changeSet id="1" author="uyen">
-    <createTable tableName="metadata">
-        <column name="id" type="INT" autoIncrement="true">
-            <constraints primaryKey="true" nullable="false"/>
-        </column>
-        <column name="table_name" type="VARCHAR(255)"/>
-        <column name="created_at" type="TIMESTAMP"/>
-    </createTable>
-</changeSet>
