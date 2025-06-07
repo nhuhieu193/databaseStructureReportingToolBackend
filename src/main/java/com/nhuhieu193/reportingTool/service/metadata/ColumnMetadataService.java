@@ -1,7 +1,7 @@
 package com.nhuhieu193.reportingTool.service.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.ColumnMetadataEntity;
-import com.nhuhieu193.reportingTool.repository.ColumnMetadataRepository;
+import com.nhuhieu193.reportingTool.repository.metadata.ColumnMetadataRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
