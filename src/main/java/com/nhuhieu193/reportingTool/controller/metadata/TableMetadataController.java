@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tables")
-@CrossOrigin(origins = "http://localhost:4200") // nếu frontend ở cổng này
+@CrossOrigin(origins = "http://localhost:4200")
 public class TableMetadataController {
 
     private final TableMetadataService service;
