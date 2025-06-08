@@ -1,4 +1,4 @@
-package com.nhuhieu193.reportingTool.service;
+package com.nhuhieu193.reportingTool.service.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.TableMetadataEntity;
 import com.nhuhieu193.reportingTool.repository.metadata.TableMetadataRepository;

@@ -56,7 +56,7 @@ public class PdfExportService {
                 content.endText();
                 y -= 20;
 
-                List<ColumnMetadataEntity> columns = columnRepo.findByTableName(table.getTableName());
+                List<ColumnMetadataEntity> columns = columnRepo.findByTable_TableName(table.getTableName());
                 for (ColumnMetadataEntity col : columns) {
                     if (y < 100) {
                         content.close();

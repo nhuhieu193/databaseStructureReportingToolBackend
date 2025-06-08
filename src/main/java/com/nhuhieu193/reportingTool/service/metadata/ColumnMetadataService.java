@@ -16,7 +16,7 @@ public class ColumnMetadataService {
     }
 
     public List<ColumnMetadataEntity> findByTableName(String tableName) {
-        return repository.findByTableName(tableName);
+        return repository.findByTable_TableName(tableName);
     }
 
     public ColumnMetadataEntity save(ColumnMetadataEntity column) {

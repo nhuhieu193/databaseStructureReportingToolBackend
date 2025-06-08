@@ -1,7 +1,7 @@
 package com.nhuhieu193.reportingTool.controller.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.TableMetadataEntity;
-import com.nhuhieu193.reportingTool.service.TableMetadataService;
+import com.nhuhieu193.reportingTool.service.metadata.TableMetadataService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
