@@ -1,5 +1,6 @@
 package com.nhuhieu193.reportingTool.entity.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class ColumnMetadataEntity {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
+    @JsonIgnore
     private TableMetadataEntity table;
 }
