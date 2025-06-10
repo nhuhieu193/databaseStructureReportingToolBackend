@@ -31,7 +31,7 @@ public class MetadataExtractorService {
     public List<TableMetadata> extractFromMetaData(DatabaseMetaData metaData) throws SQLException {
         List<TableMetadata> tableList = new ArrayList<>();
 
-        ResultSet tables = metaData.getTables(null, null, "%", new String[]{"TABLE"});
+        ResultSet tables = metaData.getTables("classicmodels", null, "%", new String[]{"TABLE"});
         while (tables.next()) {
             String tableName = tables.getString("TABLE_NAME");
             List<ColumnMetadata> columnList = new ArrayList<>();
