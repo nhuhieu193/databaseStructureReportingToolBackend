@@ -2,6 +2,7 @@ package com.nhuhieu193.reportingTool.controller.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.ColumnMetadataEntity;
 import com.nhuhieu193.reportingTool.service.metadata.ColumnMetadataService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +29,22 @@ public class ColumnMetadataController {
     }
 
     @PutMapping("/columns/{id}")
-    public ColumnMetadataEntity update(@PathVariable Long id, @RequestBody ColumnMetadataEntity column) {
-        column.setId(id);
-        return service.save(column);
+    public ResponseEntity<ColumnMetadataEntity> update(@PathVariable Long id, @RequestBody ColumnMetadataEntity column) {
+        try {
+            ColumnMetadataEntity updated = service.update(id, column);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/columns/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            service.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

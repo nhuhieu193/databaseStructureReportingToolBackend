@@ -2,6 +2,7 @@ package com.nhuhieu193.reportingTool.controller.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.TableMetadataEntity;
 import com.nhuhieu193.reportingTool.service.metadata.TableMetadataService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,17 @@ public class TableMetadataController {
     }
 
     @GetMapping("/{tableName}")
-    public TableMetadataEntity getById(@PathVariable String tableName) {
-        return service.findById(tableName).orElseThrow();
+    public ResponseEntity<TableMetadataEntity> getByTableName(@PathVariable String tableName) {
+        return service.findByTableName(tableName)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<TableMetadataEntity> getById(@PathVariable Long id) {
+        return service.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -33,13 +43,33 @@ public class TableMetadataController {
     }
 
     @PutMapping("/{tableName}")
-    public TableMetadataEntity update(@PathVariable String tableName, @RequestBody TableMetadataEntity entity) {
-        entity.setTableName(tableName);
-        return service.save(entity);
+    public ResponseEntity<TableMetadataEntity> update(@PathVariable String tableName, @RequestBody TableMetadataEntity entity) {
+        return service.findByTableName(tableName)
+                .map(existingEntity -> {
+                    entity.setId(existingEntity.getId()); // Keep the same ID
+                    entity.setTableName(tableName);
+                    return ResponseEntity.ok(service.save(entity));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{tableName}")
-    public void delete(@PathVariable String tableName) {
-        service.deleteById(tableName);
+    public ResponseEntity<Void> deleteByTableName(@PathVariable String tableName) {
+        try {
+            service.deleteByTableName(tableName);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        if (service.findById(id).isPresent()) {
+            service.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

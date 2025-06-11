@@ -19,15 +19,32 @@ public class TableMetadataService {
         return repository.findAll();
     }
 
-    public Optional<TableMetadataEntity> findById(String tableName) {
-        return repository.findById(tableName);
+    // Find by tableName (business logic)
+    public Optional<TableMetadataEntity> findByTableName(String tableName) {
+        return repository.findByTableName(tableName);
+    }
+
+    // Find by ID (primary key)
+    public Optional<TableMetadataEntity> findById(Long id) {
+        return repository.findById(id);
     }
 
     public TableMetadataEntity save(TableMetadataEntity entity) {
         return repository.save(entity);
     }
 
-    public void deleteById(String tableName) {
-        repository.deleteById(tableName);
+    // Delete by tableName (business logic)
+    public void deleteByTableName(String tableName) {
+        Optional<TableMetadataEntity> entity = repository.findByTableName(tableName);
+        if (entity.isPresent()) {
+            repository.delete(entity.get());
+        } else {
+            throw new RuntimeException("Table not found: " + tableName);
+        }
+    }
+
+    // Delete by ID (primary key)
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }
