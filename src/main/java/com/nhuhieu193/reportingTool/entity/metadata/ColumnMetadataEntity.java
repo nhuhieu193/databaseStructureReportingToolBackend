@@ -1,6 +1,6 @@
 package com.nhuhieu193.reportingTool.entity.metadata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +20,6 @@ public class ColumnMetadataEntity {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
-    @JsonIgnore
+    @JsonBackReference // ✅ Child side - không serialize, nhưng có thể deserialize
     private TableMetadataEntity table;
 }

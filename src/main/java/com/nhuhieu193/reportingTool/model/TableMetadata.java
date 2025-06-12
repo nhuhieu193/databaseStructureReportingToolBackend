@@ -1,15 +1,31 @@
 package com.nhuhieu193.reportingTool.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TableMetadata {
     private String tableName;
     private List<ColumnMetadata> columns;
+
+    public TableMetadata() {}
+
+    public TableMetadata(String tableName, List<ColumnMetadata> columns) {
+        this.tableName = tableName;
+        this.columns = columns;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public List<ColumnMetadata> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<ColumnMetadata> columns) {
+        this.columns = columns;
+    }
 }

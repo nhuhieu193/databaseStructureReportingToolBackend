@@ -1,11 +1,14 @@
 package com.nhuhieu193.reportingTool.service.metadata;
 
 import com.nhuhieu193.reportingTool.entity.metadata.TableMetadataEntity;
+import com.nhuhieu193.reportingTool.model.ColumnMetadata;
+import com.nhuhieu193.reportingTool.model.TableMetadata;
 import com.nhuhieu193.reportingTool.repository.metadata.TableMetadataRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TableMetadataService {
@@ -46,5 +49,28 @@ public class TableMetadataService {
     // Delete by ID (primary key)
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<TableMetadata> getAllTablesWithColumns() {
+        // FIX: Sử dụng đúng tên biến repository thay vì tableMetadataRepository
+        List<TableMetadataEntity> tableEntities = repository.findAll();
+
+        return tableEntities.stream().map(tableEntity -> {
+            // Map từng column entity sang model
+            List<ColumnMetadata> columns = tableEntity.getColumns().stream().map(colEntity -> {
+                return new ColumnMetadata(
+                        colEntity.getColumnName(),
+                        colEntity.getDataType(),
+                        colEntity.getColumnSize() != null ? colEntity.getColumnSize() : 0,
+                        colEntity.getNullable() != null ? colEntity.getNullable() : false
+                );
+            }).collect(Collectors.toList());
+
+            // Map table entity sang model
+            return new TableMetadata(
+                    tableEntity.getTableName(),
+                    columns
+            );
+        }).collect(Collectors.toList());
     }
 }

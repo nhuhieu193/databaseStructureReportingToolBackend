@@ -1,5 +1,6 @@
 package com.nhuhieu193.reportingTool.entity.metadata;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class TableMetadataEntity {
     private String description;
 
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // ✅ Parent side - được serialize
     private List<ColumnMetadataEntity> columns;
 }
