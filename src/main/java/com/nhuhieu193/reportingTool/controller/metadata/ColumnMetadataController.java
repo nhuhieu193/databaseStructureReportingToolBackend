@@ -26,9 +26,13 @@ public class ColumnMetadataController {
         return service.findByTableName(tableName);
     }
 
-    @PostMapping("/columns")
-    public ColumnMetadataEntity create(@RequestBody ColumnMetadataEntity column) {
-        return service.save(column);
+    @PostMapping("/table-name/{tableName}")
+    public ResponseEntity<ColumnMetadataEntity> addColumnByTableName(
+            @PathVariable String tableName,
+            @RequestBody ColumnMetadataEntity column) {
+
+        ColumnMetadataEntity savedColumn = this.service.saveWithTableName(tableName, column);
+        return ResponseEntity.ok(savedColumn);
     }
 
     @PutMapping("/columns/{id}")

@@ -20,6 +20,6 @@ public class ColumnMetadataEntity {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
-    @JsonBackReference // ✅ Child side - không serialize, nhưng có thể deserialize
+    @JsonBackReference
     private TableMetadataEntity table;
 }

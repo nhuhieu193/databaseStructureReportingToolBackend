@@ -24,14 +24,11 @@ public class ColumnMetadataService {
         return repository.findByTable_TableName(tableName);
     }
 
-    public ColumnMetadataEntity save(ColumnMetadataEntity column) {
-        // Nếu column có table info, tìm và set table entity
-        if (column.getTable() != null && column.getTable().getTableName() != null) {
-            Optional<TableMetadataEntity> tableOpt = tableRepository.findByTableName(column.getTable().getTableName());
-            if (tableOpt.isPresent()) {
-                column.setTable(tableOpt.get());
-            }
-        }
+    public ColumnMetadataEntity saveWithTableName(String tableName, ColumnMetadataEntity column) {
+        TableMetadataEntity table = tableRepository.findByTableName(tableName)
+                .orElseThrow(() -> new RuntimeException("Table not found with name: " + tableName));
+
+        column.setTable(table);
         return repository.save(column);
     }
 
